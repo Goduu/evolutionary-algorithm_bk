@@ -21,13 +21,14 @@ export class DefaultService {
     }
     /**
      * Create Item
-     * @param requestBody
      * @returns ResponseMessage Successful Response
      * @throws ApiError
      */
-    public static createItemApiItemsPost(
+    public static createItemApiItemsPost({
+        requestBody,
+    }: {
         requestBody: Item,
-    ): CancelablePromise<ResponseMessage> {
+    }): CancelablePromise<ResponseMessage> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/items/',
