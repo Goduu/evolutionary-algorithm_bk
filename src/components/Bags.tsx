@@ -3,9 +3,9 @@ import React, { FC } from 'react'
 import { CiBag1 } from "react-icons/ci";
 
 const bags = [
-    { iconSize: 30, weight: 5 },
+    { iconSize: 30, weight: 6 },
     { iconSize: 40, weight: 8 },
-    { iconSize: 55, weight: 12 },
+    { iconSize: 55, weight: 10 },
 ]
 type BagsProps = {
     selectedBag: number | undefined
@@ -20,7 +20,7 @@ export const Bags: FC<BagsProps> = ({ selectedBag: chosenBag, setSelectedBag: se
             <div className='flex gap-2 justify-center'>
                 {bags.map((bag, index) => (
                     <div key={bag.weight} className={classNames({
-                        'flex flex-col rounded-xl border p-8 justify-center items-center w-32 cursor-pointer': true,
+                        'flex flex-col rounded-xl border p-8 justify-center items-center w-28 cursor-pointer': true,
                         'bg-teal-600': chosenBag === bag.weight
                     })}
                         onClick={() => setChosenBag(bag.weight)}>

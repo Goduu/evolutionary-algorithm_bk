@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { EvolutionaryInput } from '../models/EvolutionaryInput';
 import type { Item } from '../models/Item';
 import type { ResponseMessage } from '../models/ResponseMessage';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -40,14 +41,28 @@ export class DefaultService {
         });
     }
     /**
-     * Hello World
-     * @returns any Successful Response
+     * Start Task
+     * @returns ResponseMessage Successful Response
      * @throws ApiError
      */
-    public static helloWorldApiPythonGet(): CancelablePromise<any> {
+    public static startTaskApiStartTaskClientIdPost({
+        clientId,
+        requestBody,
+    }: {
+        clientId: string,
+        requestBody: EvolutionaryInput,
+    }): CancelablePromise<ResponseMessage> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/python',
+            method: 'POST',
+            url: '/api/start_task/{client_id}',
+            path: {
+                'client_id': clientId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
         });
     }
 }

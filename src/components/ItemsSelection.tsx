@@ -11,8 +11,9 @@ import { PiSelectionAllFill } from "react-icons/pi";
 type ItemsSelectionProps = {
     selectedItems: Item[]
     setSelectedItems: (items: Item[]) => void
+    selectedBag?: number
 }
-export const ItemsSelection: FC<ItemsSelectionProps> = ({ selectedItems, setSelectedItems }) => {
+export const ItemsSelection: FC<ItemsSelectionProps> = ({ selectedItems, setSelectedItems, selectedBag }) => {
     const [hoveredItem, setHoveredItem] = useState<Item>()
 
     const handleSelectItem = (item: Item) => {
@@ -43,25 +44,23 @@ export const ItemsSelection: FC<ItemsSelectionProps> = ({ selectedItems, setSele
             <div className="flex flex-row gap-2 flex-wrap  items-center justify-center">
                 {items.map((object, index) => {
                     return (
-                        <>
-                            <div
-                                key={index}
-                                className={classNames({
-                                    "flex flex-col rounded-xl border p-8 items-center w-32 cursor-pointer": true,
-                                    "bg-green-600": selectedItems.includes(object),
-                                }
+                        <div
+                            key={index}
+                            className={classNames({
+                                "flex flex-col rounded-xl border p-8 items-center w-28 cursor-pointer": true,
+                                "bg-green-600": selectedItems.includes(object),
+                            }
 
-                                )}
-                                onMouseMove={() => setHoveredItem(object)}
-                                onMouseOut={() => setHoveredItem(undefined)}
-                                onClick={() => handleSelectItem(object)}
-                            >
-                                <object.icon size={40} />
-                            </div>
-                        </>
+                            )}
+                            onMouseMove={() => setHoveredItem(object)}
+                            onMouseOut={() => setHoveredItem(undefined)}
+                            onClick={() => handleSelectItem(object)}
+                        >
+                            <object.icon size={40} />
+                        </div>
                     )
                 })}
-                <ItemTooltip item={hoveredItem} selectedItems={selectedItems} />
+                <ItemTooltip item={hoveredItem} selectedItems={selectedItems} selectedBag={selectedBag} />
             </div>
         </div>
     )
