@@ -8,38 +8,53 @@ import { BiDna } from "react-icons/bi";
 import { w3cwebsocket as WebSocketClient } from "websocket";
 
 
+const randomClientId = (Math.random() * 100).toFixed(0);
+
 export const Main = () => {
     const [selectedItems, setSelectedItems] = useState<Item[]>([])
     const [selectedBag, setSelectedBag] = useState<number>()
-    const randomClientId = (Math.random() * 100).toFixed(0);
-    const ws = useMemo(() => new WebSocketClient(`ws://localhost:8000/evolutionary_algorithm_ws/${randomClientId}`), [randomClientId]);
+    // const ws = useMemo(() => new WebSocketClient(`ws://localhost:8000/evolutionary_algorithm_ws/${randomClientId}`), [randomClientId]);
+    const [ws, setWs] = useState<WebSocketClient>()
 
-    const handleRunAlgorithm = () => {
+    const handleRunAlgorithm = async () => {
         if (selectedBag && selectedItems.length > 0) {
-            DefaultService.startTaskApiStartTaskClientIdPost({ requestBody: { items: selectedItems, max_weight: selectedBag }, clientId: randomClientId }).then(data => {
-                console.log(data);
-            })
+            setWs(await new WebSocketClient(`ws://localhost:8000/evolutionary_algorithm_ws/${randomClientId}`))
+
         }
     }
 
     useEffect(() => {
-        ws.onopen = () => {
-            console.log("WebSocket connected");
-            // Initiate the task when the WebSocket is connected
-        };
+        if (ws) {
 
-        ws.onmessage = (message) => {
-            // Handle updates/results received from WebSocket
-            console.log(message.data);
-        };
+            ws.onopen = () => {
+                console.log("WebSocket connected");
 
-        ws.onclose = () => {
-            console.log("WebSocket closed");
-        };
+                if (selectedBag && selectedItems.length > 0) {
+                    DefaultService.startTaskApiStartTaskClientIdPost({ requestBody: { items: selectedItems, max_weight: selectedBag }, clientId: randomClientId }).then(data => {
+                        console.log(data);
+                    })
+                }
+                // Initiate the task when the WebSocket is connected
+            };
 
-        return () => {
-            ws.close();
-        };
+            ws.onmessage = (message) => {
+                // Handle updates/results received from WebSocket
+                console.log("received", message.data);
+                // check if data received is a json object
+                if (message.data.startsWith("[{")) {
+                    console.log("parsed", JSON.parse(message.data))
+                    setSelectedItems(JSON.parse(message.data) as Item[])
+                }
+            };
+
+            ws.onclose = () => {
+                console.log("WebSocket closed");
+            };
+
+            return () => {
+                ws?.close();
+            };
+        }
     }, [ws]);
 
     return (
@@ -51,6 +66,7 @@ export const Main = () => {
                 evolve and refine solutions over time, ultimately finding an optimal or near-optimal
                 solution for the knapsack problem.
             </p>
+            Total value: {selectedItems.reduce((acc, current) => acc + current.price, 0).toFixed(2)}
             <Bags selectedBag={selectedBag} setSelectedBag={setSelectedBag} />
             <ItemsSelection selectedItems={selectedItems} setSelectedItems={setSelectedItems} selectedBag={selectedBag} />
             <Button onClick={handleRunAlgorithm}><BiDna size={30} /> Run Algorithm</Button>

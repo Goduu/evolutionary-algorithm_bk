@@ -33,6 +33,10 @@ export const ItemsSelection: FC<ItemsSelectionProps> = ({ selectedItems, setSele
         setSelectedItems(randomItems)
     }
 
+    const istItemSelected = (item: Item) => {
+        return selectedItems.find((selectedItem) => selectedItem.id === item.id)
+    }
+
     return (
         <div className='flex flex-col gap-4'>
             <p className="text-2xl">Choose your items:</p>
@@ -42,21 +46,21 @@ export const ItemsSelection: FC<ItemsSelectionProps> = ({ selectedItems, setSele
                 <Button onClick={() => setSelectedItems(items)}><PiSelectionAllFill /> All</Button>
             </div>
             <div className="flex flex-row gap-2 flex-wrap  items-center justify-center">
-                {items.map((object, index) => {
+                {items.map((item, index) => {
                     return (
                         <div
                             key={index}
                             className={classNames({
                                 "flex flex-col rounded-xl border p-8 items-center w-28 cursor-pointer": true,
-                                "bg-green-600": selectedItems.includes(object),
+                                "bg-green-600": istItemSelected(item),
                             }
 
                             )}
-                            onMouseMove={() => setHoveredItem(object)}
+                            onMouseMove={() => setHoveredItem(item)}
                             onMouseOut={() => setHoveredItem(undefined)}
-                            onClick={() => handleSelectItem(object)}
+                            onClick={() => handleSelectItem(item)}
                         >
-                            <object.icon size={40} />
+                            <item.icon size={40} />
                         </div>
                     )
                 })}
