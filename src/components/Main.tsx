@@ -4,8 +4,8 @@ import { Bags } from './Bags'
 import { ItemsSelection } from './ItemsSelection'
 import { DefaultService, Item } from '@/client'
 import { Button } from './Button'
-import { BiDna } from "react-icons/bi";
 import { w3cwebsocket as WebSocketClient } from "websocket";
+import { BiDna } from './Icons'
 
 
 const randomClientId = (Math.random() * 100).toFixed(0);
@@ -69,7 +69,7 @@ export const Main = () => {
             Total value: {selectedItems.reduce((acc, current) => acc + current.price, 0).toFixed(2)}
             <Bags selectedBag={selectedBag} setSelectedBag={setSelectedBag} />
             <ItemsSelection selectedItems={selectedItems} setSelectedItems={setSelectedItems} selectedBag={selectedBag} />
-            <Button onClick={handleRunAlgorithm}><BiDna size={30} /> Run Algorithm</Button>
+            <Button onClick={handleRunAlgorithm}><BiDna width={20} className='fill-current'/> Run Algorithm</Button>
         </div>
     )
 }

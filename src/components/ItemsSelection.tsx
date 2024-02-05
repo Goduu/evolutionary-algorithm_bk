@@ -4,9 +4,9 @@ import classNames from 'classnames'
 import { Item } from '@/client'
 import { ItemTooltip } from './ItemTooltip'
 import { Button } from './Button'
-import { HiOutlineRefresh } from "react-icons/hi";
-import { TbArrowsRandom } from "react-icons/tb";
-import { PiSelectionAllFill } from "react-icons/pi";
+import { HiOutlineRefresh,
+    TbArrowsRandom,
+    PiSelectionAllFill } from './Icons'
 
 type ItemsSelectionProps = {
     selectedItems: Item[]
@@ -41,9 +41,9 @@ export const ItemsSelection: FC<ItemsSelectionProps> = ({ selectedItems, setSele
         <div className='flex flex-col gap-4'>
             <p className="text-2xl">Choose your items:</p>
             <div className="flex flex-row gap-2 justify-center">
-                <Button onClick={() => setSelectedItems([])}><HiOutlineRefresh />Clear</Button>
-                <Button onClick={handleSelectRandom}><TbArrowsRandom /> Random</Button>
-                <Button onClick={() => setSelectedItems(items)}><PiSelectionAllFill /> All</Button>
+                <Button onClick={() => setSelectedItems([])}><HiOutlineRefresh  width={20} className='fill-current'/>Clear</Button>
+                <Button onClick={handleSelectRandom}><HiOutlineRefresh  width={20} className='fill-current'/> Random</Button>
+                <Button onClick={() => setSelectedItems(items)}><HiOutlineRefresh width={20} className='fill-current'/> All</Button>
             </div>
             <div className="flex flex-row gap-2 flex-wrap  items-center justify-center">
                 {items.map((item, index) => {
@@ -60,7 +60,7 @@ export const ItemsSelection: FC<ItemsSelectionProps> = ({ selectedItems, setSele
                             onMouseOut={() => setHoveredItem(undefined)}
                             onClick={() => handleSelectItem(item)}
                         >
-                            <item.icon size={40} />
+                            <item.icon className='h-10 w-10 fill-current' />
                         </div>
                     )
                 })}

@@ -1,16 +1,16 @@
 import { Item } from "@/client";
-import { IconType } from "react-icons";
 import {
     PiBarbell, PiBeerBottleFill, PiBone, PiBoot, PiBroom, PiCakeFill, PiCarrot,
     PiCassetteTapeBold, PiCoins, PiCookieBold, PiCreditCard, PiCrown, PiDress, PiDribbbleLogo,
     PiEggCrack, PiEyeglassesBold, PiFeather, PiFishSimple, PiFlashlight, PiFlask, PiFloppyDiskBack,
     PiGameController, PiGift, PiGuitar, PiHamburger, PiHammer, PiHeadset, PiKey, PiKnife, PiMaskHappy,
     PiMicrophoneStageBold, PiPants, PiPencil, PiPepper, PiPiggyBank, PiPottedPlant, PiSneaker, PiSunglassesFill,
-    PiSword, PiToiletPaper, PiVolleyball,
-} from "react-icons/pi";
+    PiSword, PiToiletPaper, PiVolleyball
+} from "./Icons";
+import { FC, SVGProps } from "react";
 
 export type ItemWithIcon = Item & {
-    icon: IconType
+    icon: FC<SVGProps<SVGSVGElement>>
 }
 
 export const items: ItemWithIcon[] = [
