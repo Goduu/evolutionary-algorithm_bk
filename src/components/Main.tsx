@@ -41,7 +41,7 @@ export const Main = () => {
                 // Handle updates/results received from WebSocket
                 console.log("received", message.data);
                 // check if data received is a json object
-                if (message.data.startsWith("[{")) {
+                if (typeof message.data === "string" && message.data.startsWith("[{")) {
                     console.log("parsed", JSON.parse(message.data))
                     setSelectedItems(JSON.parse(message.data) as Item[])
                 }
