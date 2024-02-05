@@ -55,7 +55,7 @@ export const Main = () => {
                 ws?.close();
             };
         }
-    }, [ws]);
+    }, [ws, selectedBag, selectedItems, setSelectedItems]);
 
     return (
         <div className="flex flex-col gap-10 pb-28">
