@@ -10,10 +10,10 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://evolutionary-algorithm-819493p3w-goduu.vercel.app/", "http://localhost:3000/"],
+    allow_origins=["https://evolutionary-algorithm.vercel.app/", "http://localhost:3000/"],
     allow_credentials=True,
-    allow_methods=["https://evolutionary-algorithm-819493p3w-goduu.vercel.app/", "http://localhost:3000/"],
-    allow_headers=["https://evolutionary-algorithm-819493p3w-goduu.vercel.app/", "http://localhost:3000/"],
+    allow_methods=["https://evolutionary-algorithm.vercel.app/", "http://localhost:3000/"],
+    allow_headers=["https://evolutionary-algorithm.vercel.app/", "http://localhost:3000/"],
 )
 
 class ResponseMessage(BaseModel):
@@ -36,7 +36,6 @@ async def get_items():
 connections: List[WebSocket] = {}
   
 # Create an asyncio.Queue for communication
-task_queue = asyncio.Queue()
 
 @app.websocket("/evolutionary_algorithm_ws/{client_id}")
 async def evolutionary_algorithm_ws(websocket: WebSocket, client_id: str):

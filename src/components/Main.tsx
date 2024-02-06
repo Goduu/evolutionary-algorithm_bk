@@ -47,6 +47,10 @@ export const Main = () => {
                 }
             };
 
+            ws.onerror = function(event) {
+                console.error("WebSocket error observed:", event);
+            };
+
             ws.onclose = () => {
                 console.log("WebSocket closed");
             };
