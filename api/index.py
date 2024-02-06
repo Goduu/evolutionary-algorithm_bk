@@ -1,7 +1,7 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-from typing import List, Dict, Union
+from typing import List
 import asyncio
 from api.run_evolutionary_algorithm import run_evolutionary_algorithm
 from api.types import EvolutionaryInput, Item
@@ -10,10 +10,10 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://evolutionary-algorithm-819493p3w-goduu.vercel.app/", "http://localhost:3000/"],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["https://evolutionary-algorithm-819493p3w-goduu.vercel.app/", "http://localhost:3000/"],
+    allow_headers=["https://evolutionary-algorithm-819493p3w-goduu.vercel.app/", "http://localhost:3000/"],
 )
 
 class ResponseMessage(BaseModel):
@@ -53,6 +53,8 @@ async def evolutionary_algorithm_ws(websocket: WebSocket, client_id: str):
 @app.post("/api/start_task/{client_id}", response_model=ResponseMessage)
 async def start_task(input: EvolutionaryInput, client_id: str):
     print("Task started")
+    while not connections.get(client_id):
+        await asyncio.sleep(0.2)
     best_individual = await run_evolutionary_algorithm(input, connections[client_id])
     best_individual_json = [item.to_json() for item in best_individual]
     connections[client_id].send_json(best_individual_json)
