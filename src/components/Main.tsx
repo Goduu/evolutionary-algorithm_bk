@@ -18,7 +18,7 @@ export const Main = () => {
 
     const handleRunAlgorithm = async () => {
         if (selectedBag && selectedItems.length > 0) {
-            setWs(await new WebSocketClient(`ws://${process.env.NEXT_PUBLIC_APP_URL}evolutionary_algorithm_ws/${randomClientId}`))
+            setWs(await new WebSocketClient(`ws://${process.env.NEXT_PUBLIC_APP_URL}/evolutionary_algorithm_ws/${randomClientId}`))
 
         }
     }
