@@ -69,7 +69,9 @@ export const Main = () => {
             Total value: {selectedItems.reduce((acc, current) => acc + current.price, 0).toFixed(2)}
             <Bags selectedBag={selectedBag} setSelectedBag={setSelectedBag} />
             <ItemsSelection selectedItems={selectedItems} setSelectedItems={setSelectedItems} selectedBag={selectedBag} />
-            <Button onClick={handleRunAlgorithm}><BiDna width={20} className='fill-current'/> Run Algorithm</Button>
+            <div className='flex items-center justify-center py-10 w-11/12'>
+                <Button onClick={handleRunAlgorithm}><BiDna width={20} className='fill-current'/> Run Algorithm</Button>
+            </div>
         </div>
     )
 }
