@@ -1,6 +1,9 @@
 import { Header } from '@/components/Header'
 import './globals.css'
 import { Inter } from 'next/font/google'
+import { AuraBeam, AuraBeamAnnotator, AuraBeamBody, AuraBeamTitle } from "aura-beam-annotator";
+import 'aura-beam-annotator/dist/tailwind.css'
+import SectionContainer from '@/components/SectionContainer';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,10 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        <div className="flex h-screen flex-col justify-between font-sans">
-          {children}
-        </div>
+        <SectionContainer>
+          <Header />
+          <div className="flex h-screen flex-col justify-between font-sans">
+            {children}
+          </div>
+        </SectionContainer>
       </body>
     </html>
   )
