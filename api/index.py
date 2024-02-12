@@ -12,8 +12,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://evolutionary-algorithm.vercel.app/", "http://localhost:3000/"],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["https://evolutionary-algorithm.vercel.app/", "http://localhost:3000/"],
+    allow_headers=["https://evolutionary-algorithm.vercel.app/", "http://localhost:3000/"],
 )
 
 class ResponseMessage(BaseModel):
