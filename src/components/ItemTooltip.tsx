@@ -5,10 +5,10 @@ import { FC } from 'react'
 type ItemTooltipProps = {
     item: Item | undefined
     selectedItems: Item[]
-    selectedBag?: number
+    selectedKnapsack?: number
 }
 
-export const ItemTooltip: FC<ItemTooltipProps> = ({ item, selectedItems, selectedBag }) => {
+export const ItemTooltip: FC<ItemTooltipProps> = ({ item, selectedItems, selectedKnapsack }) => {
     return (
         <div
             className={classNames({
@@ -33,7 +33,7 @@ export const ItemTooltip: FC<ItemTooltipProps> = ({ item, selectedItems, selecte
                     Total Weight: {selectedItems.reduce((acc, item) => acc + item.weight, 0).toFixed(2)}kg
                 </p>
                 <p>
-                    Selected Bag: {selectedBag}kg
+                    Selected Knapsack: {selectedKnapsack}kg
                 </p>
             </div>
         </div>

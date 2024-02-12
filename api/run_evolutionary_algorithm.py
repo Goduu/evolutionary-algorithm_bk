@@ -5,9 +5,11 @@ from typing import List
 import random
 from fastapi import WebSocket
 from api.types import EvolutionaryInput, Item
+from starlette.websockets import WebSocketState
+from fastapi.websockets import WebSocketDisconnect
 
 POPULATION_SIZE = 100
-MAX_GENERATIONS = 1000
+MAX_GENERATIONS = 20
 TOURNAMENT_SIZE = 5
 MUTATION_RATE = 0.1
 MAX_ITEMS_FROM_EACH = 3
@@ -71,21 +73,33 @@ def mutate(individual: List[Item], items: List[Item], max_weight: float):
 async def run_evolutionary_algorithm(ev_input: EvolutionaryInput, websocket: WebSocket) -> List[Item]:
     items, max_weight = ev_input.items, ev_input.max_weight
     population = initialize_population(items, max_weight)
-    for generation in range(MAX_GENERATIONS):
-        new_population = []
-        for _ in range(int(POPULATION_SIZE / 2)):
-            parent1 = selection(population)
-            parent2 = selection(population)
-            for child in crossover(parent1, parent2, max_weight):
-                mutate(child, items, max_weight)
-                new_population.append(child)
-        population = new_population
-        if(generation%10 == 0):
-            await sleep(1)
-            best_individual = max(population, key=lambda x: calculate_fitness(x))
-            # convert best_individual list of Items to json
-            best_individual_json = [item.to_json() for item in best_individual]
-            await websocket.send_json(best_individual_json) 
-    best_individual = max(population, key=lambda x: calculate_fitness(x))
-    return best_individual
-
+    try:
+        for generation in range(MAX_GENERATIONS):
+            print("generation: ", generation)
+            new_population = []
+            for _ in range(int(POPULATION_SIZE / 2)):
+                parent1 = selection(population)
+                parent2 = selection(population)
+                for child in crossover(parent1, parent2, max_weight):
+                    mutate(child, items, max_weight)
+                    new_population.append(child)
+            population = new_population
+            if generation % 2 == 0 and generation != 0:
+                if websocket.client_state != WebSocketState.DISCONNECTED:
+                    best_individual = max(population, key=lambda x: calculate_fitness(x))
+                    best_individual_json = [item.to_json() for item in best_individual]
+                    await websocket.send_json(best_individual_json)
+                else:
+                    raise WebSocketDisconnect()
+            else:
+                await websocket.send_text("[EA] Keep the connection alive...")
+        best_individual = max(population, key=lambda x: calculate_fitness(x))
+        return best_individual
+    except WebSocketDisconnect:
+        print("WebSocket disconnected during algorithm execution.")
+        # Handle disconnection gracefully
+        return None
+    except Exception as e:
+        print("An error occurred during algorithm execution:", e)
+        # Handle other exceptions gracefully
+        return None

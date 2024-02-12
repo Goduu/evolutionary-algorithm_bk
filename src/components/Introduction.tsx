@@ -1,6 +1,9 @@
 import { AuraBeam, AuraBeamAnnotator, AuraBeamBody, AuraBeamTitle, AuraBeamVerticalDivider } from 'aura-beam-annotator'
 import React from 'react'
 import { introductionText } from './introductionText'
+import Image from 'next/image'
+import { Button } from './Button'
+import Link from 'next/link'
 
 export const Introduction = () => {
     const colors = ["lime", "green", "emerald", "teal", "cyan", "sky"]
@@ -22,7 +25,11 @@ export const Introduction = () => {
                                         <>
                                             <AuraBeamTitle title={subtitle.title} type='secondary' positioning={positioning} />
                                             <AuraBeamBody positioning={positioning}>
-                                                {subtitle.description}
+                                                <div className='flex flex-col lg:flex-row gap-4 items-center w-full'>
+                                                    {subtitle.image &&
+                                                        <Image src={subtitle.image} width={300} height={250} alt={subtitle.image} />}
+                                                    {subtitle.description}
+                                                </div>
                                             </AuraBeamBody>
                                         </>
                                     )
@@ -37,6 +44,12 @@ export const Introduction = () => {
                     )
                 })}
             </AuraBeam>
+            <Link
+                href={'/algorithm'}
+                className="text-2xl font-bold tracking-widest text-gray-100 flex items-center justify-center pb-16"
+            >
+                <Button > Start Now</Button>
+            </Link>
         </div>
     )
 }

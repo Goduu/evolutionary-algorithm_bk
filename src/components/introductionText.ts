@@ -1,97 +1,59 @@
 
-
 export const introductionText = [{
-    title: "The Survival of the Fittest Code: Evolutionary Algorithms Unleashed!",
-    description: "Explore the digital wilderness where algorithms evolve to conquer complex problems. Discover:",
+    title: "The Survival of the Fittest Code",
+    description: "Explore the digital wilderness where algorithms evolve to conquer complex problems.",
     subtitles: [
         {
             title: "Natural Selection in the Digital Realm",
-            description: "Witness how algorithms undergo natural selection, where variations in solutions are evaluated based on their fitness to solve a specific problem. Solutions with higher fitness have a greater chance of being selected for reproduction, mimicking nature's process of survival of the fittest."
+            description: "What if we could draw inspiration from evolutionary theory to solve our optimization problems?",
         },
         {
-            title: "Adapt or Perish: Evolutionary Strategies",
-            description: "Dive into the strategies employed by evolutionary algorithms to adapt and thrive in changing environments. Through mechanisms such as mutation, crossover, and selection, algorithms continually explore new solutions, adapting to evolving problem landscapes and optimizing their performance over time."
+            title: "Adapt or Perish",
+            description: "Imagine a problem represented with variables, each variable having a range of values. Sometimes there are so many combinations that we simply cannot try every one of them.",
+            image: "3-stage-evolution.svg"
         },
         {
-            title: "From Code to Creatures: Unraveling the Genetic Algorithm",
-            description: "Delve into the genetic algorithm, a cornerstone of evolutionary computation. Understand how solutions are represented as chromosomes composed of genes, each encoding a potential solution to the problem. Witness the evolution of solutions through operations such as mutation, where genes undergo random changes, and crossover, where genetic material is exchanged between solutions to create offspring with favorable traits."
+            title: "From Code to Creatures",
+            description: "Using evolutionary algorithm strategies, we can model this problem and find a very good solution. But how does it work? What exactly are our 'individual'? What is a population and how does it help us solve the problem?"
         },
     ]
 },
 {
     title: "From Darwin's Finch to Data Crunch: The Evolution of Problem-Solving!",
-    description: "Witness the transformation of problem-solving from theoretical concepts to practical applications through the lens of evolutionary algorithms. Explore the following subtopics:",
+    description: "Witness the transformation of problem-solving from theoretical concepts to practical applications through the lens of evolutionary algorithms.",
     subtitles: [
         {
             title: "Darwin's Influence: Evolutionary Concepts in Code",
-            description: "Explore how Darwin's principles of variation, inheritance, and selection inspire the development of evolutionary algorithms. Witness the application of evolutionary concepts in code, where populations of candidate solutions evolve and adapt to solve complex problems, guided by the principles of natural selection."
+            description: "Darwin's principles of variation, inheritance, and selection inspire the development of evolutionary algorithms. Populations of candidate solutions evolve and adapt to solve complex problems, guided by the principles of natural selection.",
+            image: "darwin.svg"
         },
         {
-            title: "The Digital Evolution: Problem-Solving in the Digital Age",
-            description: "Delve into the evolution of problem-solving strategies, from traditional approaches to the dynamic and adaptive strategies employed by evolutionary algorithms. Discover how algorithms dynamically adjust their solutions based on feedback from the environment, continuously improving their performance and adapting to changing problem landscapes."
+            title: "The Digital Population Evolution",
+            description: "In evolutionary algorithms, an individual represents a possible solution for our problem. A population then represents a set of many possible solutions. By evaluating each one, we can make a decision: who lives and evolves, and who perishes."
         },
         {
-            title: "Cracking the Code: Applications of Evolutionary Algorithms",
-            description: "Unveil the real-world applications of evolutionary algorithms across various domains. From optimization problems in engineering and logistics to machine learning and artificial intelligence, witness how evolutionary algorithms offer scalable and robust solutions to complex problems, revolutionizing problem-solving in the digital age."
+            title: "Crossover and Perish",
+            description: "With our population and the best individuals identified, it's time to let them reproduce! We select the best individuals and cross them over to create new offspring inheriting some of their characteristics. And as in the real world, they could also undergo mutations, acquiring characteristics neither of their parents have, thus adding more variability to our possible solutions. The weakest individuals should perish, making room for the newborns.",
+            image: "crossover.svg"
         },
     ]
 },
 {
-    title: "From Darwin's Finch to Data Crunch: The Evolution of Problem-Solving!",
-    description: "Explore genetic algorithms' genetic makeup and selection mechanisms:",
+    title: "The Generational Best Solution",
+    description: "How do generations give us the best solution? Is it really the best solution?",
     subtitles: [
         {
-            title: "Deciphering the Genetic Code",
-            description: "Investigate the genetic components of algorithms, including chromosomes, genes, and alleles, and understand how they drive the evolutionary process. Witness how solutions evolve through genetic operators such as mutation and crossover, exploring new genetic combinations and generating diverse solutions to the problem."
+            title: "Generations and the Burden of Randomness",
+            description: "Repeating this process many times tends to improve our population until we reach a limit of iterations or have a good enough solution. However, since our initial solution is random, there's always a chance that the best possible characteristics will not be present in our population or won't arise from mutations. So, even though we get a very good solution, it might not be the best possible."
         },
         {
-            title: "Survival of the Fittest: Selection in Genetic Algorithms",
-            description: "Learn how selection mechanisms such as tournament selection and roulette wheel selection ensure the survival of the fittest solutions in genetic algorithms. Witness how solutions are evaluated based on their fitness and selected to advance to the next generation, guiding the evolution of the population towards optimal solutions."
-        },
-        {
-            title: "The Crossroads of Evolution: Crossover in Genetic Algorithms",
-            description: "Explore the crossover operation in genetic algorithms, where genetic material from parent solutions is combined to create offspring with diverse traits. Witness how genetic material exchange fosters genetic diversity in the population, enabling the exploration of new solutions and accelerating the convergence towards optimal solutions."
+            title: "Tuning",
+            description: "After observing how our population evolves, we can make changes to our algorithm parameters to optimize it for bigger changes, creating better solutions. Now, let's look at a practical example of how it all could work."
         },
     ]
 },
 {
-    title: "Evolve Your Way Out: Navigating the Maze of Complex Problems!",
-    description: "Navigate complex problems with evolutionary algorithms:",
-    subtitles: [
-        {
-            title: "Into the Digital Labyrinth: Complexity in Problem-Solving",
-            description: "Explore the complexities of real-world problems and understand how evolutionary algorithms offer a navigational beacon through the maze of possibilities. Witness how algorithms dynamically adjust their solutions to tackle the intricacies of complex problems, leveraging adaptive strategies to navigate through the complexity and uncertainty of the problem landscape."
-        },
-        {
-            title: "Strategy Over Strength: Intelligent Problem-Solving",
-            description: "Delve into the intelligent problem-solving strategies employed by evolutionary algorithms, emphasizing adaptability, efficiency, and resilience. Witness how algorithms intelligently explore the solution space, leveraging adaptive mechanisms to exploit promising regions and explore new possibilities, optimizing their solutions to meet the objectives of the problem."
-        },
-        {
-            title: "Unraveling the Solutions: Evolutionary Insights",
-            description: "Gain insights into the solutions generated by evolutionary algorithms and understand how they unravel the mysteries of complex problems with precision and ingenuity. Witness how algorithms uncover optimal solutions through a process of exploration and exploitation, leveraging adaptive strategies to unravel the complexities of the problem landscape and achieve superior performance."
-        },
-    ]
-},
-{
-    title: "Mutation, Crossover, Selection: The Recipe for Digital Evolution!",
-    description: "Learn about the fundamental ingredients of evolutionary algorithms:",
-    subtitles: [
-        {
-            title: "Mutation: Embracing Change in Algorithms",
-            description: "Understand the role of mutation in evolutionary algorithms, where solutions undergo random changes to explore new possibilities and overcome stagnation. Witness how mutation introduces genetic diversity in the population, fostering exploration and enabling the discovery of novel solutions to the problem."
-        },
-        {
-            title: "Crossover: Blending Genetic Material for Innovation",
-            description: "Explore the crossover operation in evolutionary algorithms, where genetic material from parent solutions is combined to create offspring with diverse traits. Witness how crossover facilitates the exchange of genetic information between solutions, fostering innovation and accelerating the convergence towards optimal solutions."
-        },
-        {
-            title: "Selection: Choosing the Best of the Best",
-            description: "Delve into selection mechanisms in evolutionary algorithms, where solutions are evaluated based on their fitness and selected to advance to the next generation. Witness how selection ensures the survival of the fittest solutions in the population, guiding the evolution towards optimal solutions and driving continuous improvement in performance."
-        },
-    ]
-},
-{
-    title: 'Knapsack Problem Explanation: "Pack Smart, Not Hard: The Knapsack Conundrum!"',
+    title: 'Knapsack Problem Explanation: "Pack Smart, Not Hard!"',
     description: "Pack efficiently with evolutionary algorithms.",
     subtitles: [
         {

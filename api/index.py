@@ -1,7 +1,7 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-from typing import List
+from typing import Dict, List
 import asyncio
 from api.run_evolutionary_algorithm import run_evolutionary_algorithm
 from api.types import EvolutionaryInput, Item
@@ -12,8 +12,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://evolutionary-algorithm.vercel.app/", "http://localhost:3000/"],
     allow_credentials=True,
-    allow_methods=["https://evolutionary-algorithm.vercel.app/", "http://localhost:3000/"],
-    allow_headers=["https://evolutionary-algorithm.vercel.app/", "http://localhost:3000/"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 class ResponseMessage(BaseModel):
@@ -33,7 +33,7 @@ async def get_items():
     ]
   
 # Store WebSocket connections along with client identifiers
-connections: List[WebSocket] = {}
+connections: Dict[str, WebSocket] = {}
   
 # Create an asyncio.Queue for communication
 
@@ -43,21 +43,33 @@ async def evolutionary_algorithm_ws(websocket: WebSocket, client_id: str):
     connections[client_id] = websocket
     try:
         while True:
-            await asyncio.sleep(3)
-            await websocket.send_text("Running...")
+            if(client_id in connections):
+                await asyncio.sleep(0.5)
+                await websocket.send_text("[CK] Keep the connection alive...")
+            else: 
+                break
     except WebSocketDisconnect:
-        del connections[client_id]
+        if client_id in connections:
+            del connections[client_id]
 
 # Asynchronous task endpoint
 @app.post("/api/start_task/{client_id}", response_model=ResponseMessage)
 async def start_task(input: EvolutionaryInput, client_id: str):
     print("Task started")
-    while not connections.get(client_id):
-        await asyncio.sleep(0.2)
-    best_individual = await run_evolutionary_algorithm(input, connections[client_id])
-    best_individual_json = [item.to_json() for item in best_individual]
-    connections[client_id].send_json(best_individual_json)
-        
-    return {"message": "Task started"}
-
+    try:
+        best_individual = await run_evolutionary_algorithm(input, connections[client_id])
+        if(best_individual is not None):
+            best_individual_json = [item.to_json() for item in best_individual]
+            await connections[client_id].send_json(best_individual_json)
+            print("closing connections", connections[client_id].url)
+            await connections[client_id].close()
+            del connections[client_id]
+            asyncio.sleep(1)
+        else:
+            print("Error: Best individual is None")
+        return {"message": "Task completed"}
+    
+    except Exception as e:
+        print("Exception:", str(e))
+        return {"message": f"Error occurred: {str(e)}"}
 
