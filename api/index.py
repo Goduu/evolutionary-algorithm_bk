@@ -8,14 +8,13 @@ from api.types import EvolutionaryInput, Item
 
 app = FastAPI()
 
-app.add_middleware(
-    CORSMiddleware,
-    # allow_origins=["https://evolutionary-algorithm.vercel.app/", "http://localhost:3000/"],
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=["https://evolutionary-algorithm.vercel.app/", "http://localhost:3000/"],
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 class ResponseMessage(BaseModel):
     message: str
