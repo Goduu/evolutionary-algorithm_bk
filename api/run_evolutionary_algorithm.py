@@ -10,7 +10,7 @@ from fastapi.websockets import WebSocketDisconnect
 
 POPULATION_SIZE = 100
 MAX_GENERATIONS = 20
-TOURNAMENT_SIZE = 5
+TOURNAMENT_SIZE = 3
 MUTATION_RATE = 0.1
 MAX_ITEMS_FROM_EACH = 3
 

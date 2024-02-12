@@ -4,9 +4,10 @@ import { introductionText } from './introductionText'
 import Image from 'next/image'
 import { Button } from './Button'
 import Link from 'next/link'
+import { AuraBeamColor } from 'aura-beam-annotator'
 
 export const Introduction = () => {
-    const colors = ["lime", "green", "emerald", "teal", "cyan", "sky"]
+    const colors: AuraBeamColor[] = ["lime", "green", "emerald", "teal", "cyan", "sky"]
     let positioning: "left" | "right" = "right"
     return (
         <div>
@@ -15,7 +16,7 @@ export const Introduction = () => {
                     positioning = positioning === "left" ? "right" : "left"
                     return (
                         <>
-                            <AuraBeamAnnotator key={section.title} positioning={positioning} color={colors[index] || "lime"}>
+                            <AuraBeamAnnotator key={section.title} positioning={positioning} color={colors[index]}>
                                 <AuraBeamTitle title={section.title} positioning={positioning} />
                                 <AuraBeamBody positioning={positioning}>
                                     {section.description}
